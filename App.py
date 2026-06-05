@@ -111,10 +111,15 @@ st.title("🎓 Symulator Egzaminu")
 st.subheader("Inżynieria Systemów Informacyjnych")
 
 # Panel do losowania
+# Panel do losowania
 col1, col2 = st.columns([3, 1])
 with col2:
     if st.button("🔄 Wylosuj inne"):
+        st.session_state.sprawdzono = False  # Zdejmujemy widok oceny AI
         st.session_state.aktualne_pytanie = random.choice(list(baza_wiedzy.keys()))
+        # Bezpieczne czyszczenie pola tekstowego
+        if 'user_input' in st.session_state:
+            st.session_state.user_input = ""
         st.rerun()
 
 st.info(f"**Pytanie dla Ciebie:**\n\n{st.session_state.aktualne_pytanie}")
@@ -172,9 +177,3 @@ if st.session_state.sprawdzono:
 
         with st.expander("Pokaż oryginalną notatkę wzorcową"):
             st.write(baza_wiedzy[st.session_state.aktualne_pytanie])
-
-        if st.button("Kolejne pytanie"):
-            st.session_state.sprawdzono = False
-            st.session_state.user_input = ""
-            st.session_state.aktualne_pytanie = random.choice(list(baza_wiedzy.keys()))
-            st.rerun()
