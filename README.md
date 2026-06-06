@@ -23,5 +23,5 @@ pip install -r requirements.txt
 ```
 Uruchom aplikację:
 ```
-streamlit run app.py
+python -m streamlit run App.py
 ```
